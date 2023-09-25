@@ -1,0 +1,12 @@
+*
+
+!.gitignore
+!checkers.py
+!main.py
+!get_draft.py
+!get_products.py
+!make_ads.py
+!README.py
+
+!data.csv
+!draft.csv

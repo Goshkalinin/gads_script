@@ -30,7 +30,10 @@ if __name__ == "__main__":
             + "\n    OR TRY: $ python3 main.py --help"
             + "\n  FOR TEST: $ python3 main.py --test (needed draft.csv and data.csv in working direcory)")
         exit()
-    data_path = sys.argv[1]
-    draft_path = sys.argv[2]
 
-    main(data_path, draft_path)
+    if len(sys.argv) == 3:
+        data_path = sys.argv[1]
+        draft_path = sys.argv[2]
+
+        main(data_path, draft_path)
+        exit()
