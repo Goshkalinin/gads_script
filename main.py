@@ -14,7 +14,7 @@ def main(data_path, draft_path):
 
 if __name__ == "__main__":
     if len(sys.argv) == 2 and sys.argv[1] == '--help':
-        print("Im help message, but u can gfu =)")
+        print("Im help message, but u can gfu =))")
         exit()
 
     if len(sys.argv) == 2 and sys.argv[1] == '--test':
