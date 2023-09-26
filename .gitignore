@@ -5,8 +5,10 @@
 !main.py
 !get_draft.py
 !get_products.py
-!make_ads.py
+!generate_ads.py
+!write_ads.py
 !README.py
 
 !data.csv
 !draft.csv
+!openai_generate_text.py
