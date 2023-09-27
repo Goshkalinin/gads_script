@@ -231,15 +231,19 @@ def make_ad_object(product, draft, keyword):
 def make_keywords(vendor, name):
     keywords = []
 
+    #keyword 1: poduct.Name
     keyword = name
     keywords.append(keyword)
 
+    #keyword 2: poduct.Vendor
     keyword = name.replace('-', '')
     keywords.append(keyword)
 
+    #keyword 3: poduct.Vendor + poduct.Name
     keyword = vendor + " " + name
     keywords.append(keyword)
 
+    #keyword 4: poduct.Vendor + poduct.Name, last '-$part' replaced with ''
     keyword = vendor + " " + name
     parts = keyword.split('-')
     keyword = '-'.join(parts[:-1])
@@ -269,8 +273,6 @@ def generate_ads(product_list, draft):
 
 
     return ads
-
-
 
 
 if __name__ == "__main__":
