@@ -5,8 +5,8 @@
 !main.py
 !get_draft.py
 !get_products.py
-!generate_ads.py
-!write_ads.py
+!make_ads.py
+!make_final_csv.py
 !README.py
 
 !data.csv

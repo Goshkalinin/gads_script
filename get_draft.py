@@ -38,5 +38,4 @@ def get_draft(draft_path):
             Ad_type = point_row[61],
             Path_1 = point_row[100],
         )
-
     return draft

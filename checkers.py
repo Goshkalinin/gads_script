@@ -7,22 +7,23 @@ def repair_ellipsis(string):
 
 
 def check_headline_length(ad, not_writed_products):
-    if len(ad.Headline_1) > 30:
+    if len(ad.vendor) > 30:
         not_writed_products.append(ad)
         return True
-    if len(ad.Headline_2) > 30:
+    if len(ad.name) > 30:
+        not_writed_products.append(ad)
+        print('WOW')
+        return True
+    if len(ad.product_type) > 30:
         not_writed_products.append(ad)
         return True
-    if len(ad.Headline_3) > 30:
+    if len('buy ' + ad.vendor) > 30:
         not_writed_products.append(ad)
         return True
-    if len(ad.Headline_4) > 30:
+    if len(ad.name) > 30:
         not_writed_products.append(ad)
         return True
-    if len(ad.Headline_5) > 30:
-        not_writed_products.append(ad)
-        return True
-    if len(ad.Headline_6) > 30:
+    if len(ad.product_type) > 30:
         not_writed_products.append(ad)
         return True
     return False
