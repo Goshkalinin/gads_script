@@ -29,7 +29,7 @@ def make_keywords(vendor, name):
 
 
 def make_ads(products, draft):
-    with open('final.csv', 'a', , encoding='utf-8') as file:
+    with open('final.csv', 'a', encoding='utf-8') as file:
 
         fieldnames = [
                 'Campaign', 'Labels', 'Budget', 'Budget type', 'Standard conversion goals',
