@@ -17,7 +17,7 @@ class Product:
 def get_products(products_csv):
     products = []
 
-    with open(products_csv, 'r') as file:
+    with open(products_csv, 'r', encoding='utf-8') as file:
         reader = csv.reader(file)
         next(reader)  # пропускаем хедер
 
