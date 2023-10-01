@@ -1,6 +1,6 @@
 import csv
 
-def make_final_csv():
+def make_final_csv(draft):
     with open('final.csv', 'w', newline='') as csvfile:
         fieldnames = [
                 'Campaign', 'Labels', 'Budget', 'Budget type', 'Standard conversion goals',
@@ -39,7 +39,26 @@ def make_final_csv():
 
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
+        print(draft.Budget)
 
+        campaign_header = {'Campaign': draft.Campaign,
+                           'Budget': draft.Budget,
+                           'Budget type': draft.Budget_type,
+                           'Standard conversion goals': draft.Standard_conversion_goals,
+                           'Custom conversion goal': draft.Custom_conversion_goal,
+                           'Campaign Type': draft.Campaign_Type,
+                           'Networks': draft.Networks,
+                           'Languages': draft.Languages,
+                           'Bid Strategy Type': draft.Bid_Strategy_Type,
+                           'Target CPA': draft.Target_CPA,
+                           'Start Date': draft.Start_Date,
+                           'End Date': draft.End_Date,
+                           'Ad Schedule': draft.Ad_Schedule,
+                           'Ad rotation': draft.Ad_rotation,
+                           'Targeting method': draft.Targeting_method,
+                           'Exclusion method': draft.Exclusion_method,
+                           'Audience targeting': draft.Audience_targeting,
+                           'Flexible Reach': draft.Flexible_Reach,
+                           }
 
-if __name__ == "__main__":
-    make_final_csv()
+        writer.writerow(campaign_header)
