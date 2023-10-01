@@ -29,7 +29,7 @@ def make_keywords(vendor, name):
 
 
 def make_ads(products, draft):
-    with open('final.csv', 'a') as file:
+    with open('final.csv', 'a', , encoding='utf-8') as file:
 
         fieldnames = [
                 'Campaign', 'Labels', 'Budget', 'Budget type', 'Standard conversion goals',
@@ -154,7 +154,7 @@ def make_ads(products, draft):
                              })
 
 
-        with open('NOT_WRITED.csv', 'w') as file:
+        with open('NOT_WRITED.csv', 'w', encoding='utf-8') as file:
             writer = csv.writer(file)
             for item in not_writed_products:
                 writer.writerow([item])

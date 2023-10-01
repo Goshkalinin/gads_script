@@ -1,7 +1,7 @@
 import csv
 
 def make_final_csv(draft):
-    with open('final.csv', 'w', newline='') as csvfile:
+    with open('final.csv', 'w', encoding='utf-8', newline='') as csvfile:
         fieldnames = [
                 'Campaign', 'Labels', 'Budget', 'Budget type', 'Standard conversion goals',
                 'Custom conversion goal', 'Campaign Type', 'Networks', 'Languages',

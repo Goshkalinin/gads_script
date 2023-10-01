@@ -2,7 +2,7 @@ import csv
 
 
 def write_campaign_footer(draft):
-        with open('final.csv', 'a') as file:
+        with open('final.csv', 'a', encoding='utf-8') as file:
 
             fieldnames = [
                     'Campaign', 'Labels', 'Budget', 'Budget type', 'Standard conversion goals',

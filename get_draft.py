@@ -43,7 +43,7 @@ class Draft:
 
 def get_draft(draft_path):
     rows = []
-    with open(draft_path, 'r') as file:
+    with open(draft_path, 'r', encoding='utf-8') as file:
         reader = csv.reader(file, delimiter=',')
         for row in reader:
             rows.append(row)
