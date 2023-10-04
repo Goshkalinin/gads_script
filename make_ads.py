@@ -120,7 +120,7 @@ def make_ads(products, draft):
                              'Headline 5': product.name,
                              'Headline 5 position': '2',
                              'Headline 6': 'product.product_type GPT',
-                             'Headline 6 position': '3',
+                             'Headline 6 position': '-',
                              'Headline 7': product.Headline_7,
                              'Headline 7 position': '7',
                              'Headline 8': product.Headline_8,
