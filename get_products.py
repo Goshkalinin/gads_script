@@ -14,6 +14,10 @@ class Product:
     product_type: str
     vendor: str
 
+    Headline_7: str
+    Headline_8: str
+    Headline_9: str
+
 def get_products(products_csv):
     products = []
 
@@ -31,6 +35,9 @@ def get_products(products_csv):
             category = row[6] #G
             product_type = row[7] #H
             vendor = row[8]
+            Headline_7 = row[9]
+            Headline_8 = row[10]
+            Headline_9 = row[11]
 
             products.append(Product(
                 name=name,
@@ -42,6 +49,9 @@ def get_products(products_csv):
                 category=category,
                 product_type=product_type,
                 vendor=vendor
+                Headline_7 = Headline_7
+                Headline_8 = Headline_8
+                Headline_9 = Headline_9
             ))
 
     return products
