@@ -48,10 +48,10 @@ def get_products(products_csv):
                 direction=direction,
                 category=category,
                 product_type=product_type,
-                vendor=vendor
-                Headline_7 = Headline_7
-                Headline_8 = Headline_8
-                Headline_9 = Headline_9
+                vendor=vendor,
+                Headline_7 = Headline_7,
+                Headline_8 = Headline_8,
+                Headline_9 = Headline_9,
             ))
 
     return products
