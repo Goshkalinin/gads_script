@@ -63,7 +63,7 @@ def get_draft(draft_path):
     #print(campaign_footer_3)
 
     draft = Draft(
-a        Campaign = campaign_description[0],
+        Campaign = campaign_description[0],
         Audience_targeting = campaign_description[18],
         Flexible_Reach = group_draft[19],
         Max_CPC = group_draft[21],
