@@ -23,13 +23,13 @@ def get_products(products_csv):
 
         for row in reader:
             name = row[0]
-            title = row[1]
+            title = row[1] #B
             description_ru = row[2]
             description_en = row[3]
             url = row[4]
             direction = row[5]
-            category = row[6]
-            product_type = row[7]
+            category = row[6] #G
+            product_type = row[7] #H
             vendor = row[8]
 
             products.append(Product(

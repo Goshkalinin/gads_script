@@ -48,11 +48,13 @@ def get_draft(draft_path):
         for row in reader:
             rows.append(row)
 
-    campaign_header = rows[0]
+    campaign_header = rows[1]
     campaign_description = rows[1]
+    group_draft = rows[2]
     campaign_footer_1 = rows[-1]
     campaign_footer_2 = rows[-2]
     campaign_footer_3 = rows[-3]
+    print(rows[1])
 
     #print(campaign_header)
     #print(campaign_description)
@@ -61,17 +63,17 @@ def get_draft(draft_path):
     #print(campaign_footer_3)
 
     draft = Draft(
-        Campaign = campaign_description[0],
+a        Campaign = campaign_description[0],
         Audience_targeting = campaign_description[18],
-        Flexible_Reach = campaign_description[19],
-        Max_CPC = campaign_description[21],
-        Max_CPM = campaign_description[22],
-        Target_CPM = campaign_description[25],
-        Display_Network_Custom_Bid_Type = campaign_description[31],
-        Optimized_targeting = campaign_description[32],
-        Ad_Group_Type = campaign_description[33],
+        Flexible_Reach = group_draft[19],
+        Max_CPC = group_draft[21],
+        Max_CPM = group_draft[22],
+        Target_CPM = group_draft[25],
+        Display_Network_Custom_Bid_Type = group_draft[31],
+        Optimized_targeting = group_draft[32],
+        Ad_Group_Type = group_draft[33],
         Ad_type = campaign_description[61],
-        Path_1 = campaign_description[100],
+        Path_1 = 'catalog',
 
         Budget = campaign_header[2],
         Budget_type = campaign_header[3],
@@ -88,6 +90,7 @@ def get_draft(draft_path):
         Ad_rotation = campaign_header[15],
         Targeting_method = campaign_header[16],
         Exclusion_method = campaign_header[17],
+
         ID = campaign_footer_3[38],
         Location = campaign_footer_3[39],
         Reach = campaign_footer_3[40],
@@ -100,4 +103,5 @@ def get_draft(draft_path):
 
 
 if __name__ == '__main__':
-    get_draft('draft.csv')
+    draft = get_draft('draft.csv')
+    print(draft)

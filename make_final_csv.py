@@ -58,7 +58,15 @@ def make_final_csv(draft):
                            'Targeting method': draft.Targeting_method,
                            'Exclusion method': draft.Exclusion_method,
                            'Audience targeting': draft.Audience_targeting,
-                           'Flexible Reach': draft.Flexible_Reach,
+                           'Flexible Reach': draft.Audience_targeting,
                            }
 
         writer.writerow(campaign_header)
+
+
+if __name__ == '__main__':
+    from get_draft import get_draft
+    draft = get_draft('draft.csv')
+    make_final_csv(draft)
+    print(draft)
+
