@@ -1,26 +1,39 @@
-from dataclasses import dataclass
+"""Этот модуль записывает группы объявлений в финальную csv."""
+
 import csv
 
 import checkers
+from get_header import get_header
 
 
 def make_keywords(vendor, name):
+    """
+    Запилим ключевые слова.
+
+    Args:
+        vendor (str): product.vendor
+        name (str): products.name
+
+    Returns:
+        keywords (list)
+
+    """
     keywords = []
 
-    #keyword 1: poduct.Name
+    # keyword 1: poduct.name
     keyword = name
     keywords.append(keyword)
 
-    #keyword 2: poduct.Vendor
+    # keyword 2: poduct.vendor
     keyword = name.replace('-', '')
     keywords.append(keyword)
 
-    #keyword 3: poduct.Vendor + poduct.Name
-    keyword = vendor + " " + name
+    # keyword 3: poduct.vendor + poduct.name
+    keyword = ' '.join([vendor, name])
     keywords.append(keyword)
 
-    #keyword 4: poduct.Vendor + poduct.Name, last '-$part' replaced with ''
-    keyword = vendor + " " + name
+    # keyword 4: poduct.vendor + poduct.name, last '-$part' replaced with ''
+    keyword = ' '.join([vendor, name])
     parts = keyword.split('-')
     keyword = '-'.join(parts[:-1])
     keywords.append(keyword)
@@ -29,44 +42,18 @@ def make_keywords(vendor, name):
 
 
 def make_ads(products, draft):
-    with open('final.csv', 'a', encoding='utf-8') as file:
+    """
+    Запишем в подготовленную csv группы объявок.
 
-        fieldnames = [
-                'Campaign', 'Labels', 'Budget', 'Budget type', 'Standard conversion goals',
-                'Custom conversion goal', 'Campaign Type', 'Networks', 'Languages',
-                'Bid Strategy Type', 'Bid Strategy Name', 'Target CPA', 'Start Date',
-                'End Date', 'Ad Schedule', 'Ad rotation', 'Targeting method',
-                'Exclusion method', 'Audience targeting', 'Flexible Reach', 'Ad Group',
-                'Max CPC', 'Max CPM', 'Max CPV', 'Percent CPC', 'Target CPM',
-                'Target ROAS', 'Desktop Bid Modifier', 'Mobile Bid Modifier',
-                'Tablet Bid Modifier', 'TV Screen Bid Modifier',
-                'Display Network Custom Bid Type', 'Optimized targeting',
-                'Ad Group Type', 'Audience name', 'Tracking template',
-                'Final URL suffix', 'Custom parameters', 'ID', 'Location', 'Reach',
-                'Location groups', 'Location groups legacy', 'Feed', 'Radius', 'Unit',
-                'Bid Modifier', 'Keyword', 'Criterion Type', 'First page bid',
-                'Top of page bid', 'First position bid', 'Quality score',
-                'Landing page experience', 'Expected CTR', 'Ad relevance',
-                'Final URL', 'Final mobile URL', 'Image Size', 'Link source',
-                'Business name', 'Ad type', 'Headline 1', 'Headline 1 position',
-                'Headline 2', 'Headline 2 position', 'Headline 3',
-                'Headline 3 position', 'Headline 4', 'Headline 4 position',
-                'Headline 5', 'Headline 5 position', 'Headline 6',
-                'Headline 6 position', 'Headline 7', 'Headline 7 position',
-                'Headline 8', 'Headline 8 position', 'Headline 9',
-                'Headline 9 position', 'Headline 10', 'Headline 10 position',
-                'Headline 11', 'Headline 11 position', 'Headline 12',
-                'Headline 12 position', 'Headline 13', 'Headline 13 position',
-                'Headline 14', 'Headline 14 position', 'Headline 15',
-                'Headline 15 position', 'Description 1', 'Description 1 position',
-                'Description 2', 'Description 2 position', 'Description 3',
-                'Description 3 position', 'Description 4', 'Description 4 position',
-                'Path 1', 'Path 2', 'Campaign Status', 'Ad Group Status',
-                'Status', 'Approval Status', 'Comment'
-            ]
+    Args:
+        products (list): лист с продуктами, переработанными в obj
+        draft (obj): объект с шаблонными значениями
+    """
+    with open('final.csv', 'a', encoding='utf-8') as csv_file:
 
-        writer = csv.DictWriter(file, fieldnames=fieldnames)
+        fieldnames = get_header('final.csv')
 
+        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
 
         fourth_keywords = []
         not_writed_products = []
@@ -78,17 +65,28 @@ def make_ads(products, draft):
                 continue
 
             # пилим хедер группы объявлений:
-            header = {'Campaign': draft.Campaign,
-                             'Audience targeting': draft.Audience_targeting,
-                             'Flexible Reach': draft.Flexible_Reach,
-                             'Ad Group': product.name,
-                             'Max CPC': draft.Max_CPC,
-                             'Max CPM': draft.Max_CPM,
-                             'Target CPM': draft.Target_CPM,
-                             'Display Network Custom Bid Type': draft.Display_Network_Custom_Bid_Type,
-                             'Optimized targeting': draft.Optimized_targeting,
-                             'Ad Group Type': draft.Ad_Group_Type,
-                             }
+            header = {
+                'Campaign':
+                    draft.campaign,
+                'Audience targeting':
+                    draft.audience_targeting,
+                'Flexible Reach':
+                    draft.flexible_reach,
+                'Ad Group':
+                    product.name,
+                'Max CPC':
+                    draft.max_cpc,
+                'Max CPM':
+                    draft.max_cpm,
+                'Target CPM':
+                    draft.target_cpm,
+                'Display Network Custom Bid Type':
+                    draft.display_network_custom_bid_type,
+                'Optimized targeting':
+                    draft.optimized_targeting,
+                'Ad Group Type':
+                    draft.ad_group_type,
+            }
 
             writer.writerow(header)
 
@@ -97,68 +95,75 @@ def make_ads(products, draft):
             checkers.is_in_fourth_keywords(keywords, fourth_keywords)
 
             for keyword in keywords:
-                writer.writerow({'Campaign': draft.Campaign,
-                                 'Ad Group': product.name,'Ad Group': product.name,
-                                 'Keyword': keyword,
-                                 'Criterion Type': 'Broad',
-                                 })
+                writer.writerow({
+                    'Campaign': draft.campaign,
+                    'Ad Group': product.name,
+                    'Keyword': keyword,
+                    'Criterion Type': 'Broad',
+                    })
 
             # пилим футер группы объявлений
-            writer.writerow({'Campaign': draft.Campaign,
-                             'Ad Group': product.name,
-                             'Final URL': 'https://ipc2u.com/catalog/' + product.url + '/',
-                             'Ad type': draft.Ad_type,
+            writer.writerow({
+                'Campaign': draft.campaign,
+                'Ad Group': product.name,
+                'Final URL':
+                    ''.join(['https://ipc2u.com/catalog/', product.url, '/']),
+                'Ad type': draft.ad_type,
 
-                             'Headline 1': product.vendor,
-                             'Headline 1 position': '1',
-                             'Headline 2': product.name,
-                             'Headline 2 position': '2',
-                             'Headline 3': product.product_type,
-                             'Headline 3 position': '3',
-                             'Headline 4': 'buy ' + product.vendor,
-                             'Headline 4 position': '1',
-                             'Headline 5': product.name,
-                             'Headline 5 position': '2',
-                             'Headline 6': 'product.product_type GPT',
-                             'Headline 6 position': '-',
-                             'Headline 7': product.Headline_7,
-                             'Headline 7 position': '3',
-                             'Headline 8': product.Headline_8,
-                             'Headline 8 position': '3',
-                             'Headline 9': product.Headline_9,
-                             'Headline 9 position': '3',
-                             'Headline 10': '',
-                             'Headline 10 position': '',
-                             'Headline 11': '',
-                             'Headline 11 position': '',
-                             'Headline 12': '',
-                             'Headline 12 position': '',
-                             'Headline 13': '',
-                             'Headline 13 position': '',
-                             'Headline 14': '',
-                             'Headline 14 position': '',
-                             'Headline 15': '',
-                             'Headline 15 position': '',
+                'Headline 1': product.vendor,
+                'Headline 1 position': '1',
+                'Headline 2': product.name,
+                'Headline 2 position': '2',
+                'Headline 3': product.product_type,
+                'Headline 3 position': '3',
+                'Headline 4': ' '.join(['buy', product.vendor]),
+                'Headline 4 position': '1',
+                'Headline 5': product.name,
+                'Headline 5 position': '2',
+                'Headline 6': 'product.product_type GPT',
+                'Headline 6 position': '-',
+                'Headline 7': product.headline7,
+                'Headline 7 position': '3',
+                'Headline 8': product.headline8,
+                'Headline 8 position': '3',
+                'Headline 9': product.headline9,
+                'Headline 9 position': '3',
+                'Headline 10': '',
+                'Headline 10 position': '',
+                'Headline 11': '',
+                'Headline 11 position': '',
+                'Headline 12': '',
+                'Headline 12 position': '',
+                'Headline 13': '',
+                'Headline 13 position': '',
+                'Headline 14': '',
+                'Headline 14 position': '',
+                'Headline 15': '',
+                'Headline 15 position': '',
 
-                             'Description 1': checkers.check_description(product.description_en),
-                             'Description 1 position': '',
-                             'Description 2': checkers.check_description(product.description_ru),
-                             'Description 2 position': '',
-                             'Description 3': checkers.check_description(''),
-                             'Description 3 position': '',
-                             'Description 4': checkers.check_description(''),
-                             'Description 4 position': '',
-                             'Path 1': draft.Path_1,
-                             'Path 2': product.url,
+                'Description 1':
+                    checkers.check_description(product.description2),
+                'Description 1 position': '',
+                'Description 2':
+                    checkers.check_description(product.description1),
+                'Description 2 position': '',
+                'Description 3':
+                    checkers.check_description(product.description3),
+                'Description 3 position': '',
+                'Description 4':
+                    checkers.check_description(product.description4),
+                'Description 4 position': '',
+                'Path 1': draft.path1,
+                'Path 2': product.url,
+                })
 
-                             })
+    if not not_writed_products:
+        with open(
+            'NOT_WRITED_COZE_HEADLINES.csv',
+            'w',
+            encoding='utf-8',
+        ) as csv_bad_products:
 
-
-        with open('NOT_WRITED.csv', 'w', encoding='utf-8') as file:
-            writer = csv.writer(file)
-            for item in not_writed_products:
-                writer.writerow([item])
-
-
-
-
+            writer = csv.writer(csv_bad_products)
+            for bad_product in not_writed_products:
+                writer.writerow([bad_product])

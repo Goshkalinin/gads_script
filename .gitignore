@@ -1,15 +1,18 @@
 *
 
 !.gitignore
+!README.md
+
 !checkers.py
 !main.py
 !get_draft.py
 !get_products.py
 !make_ads.py
-!make_final_csv.py
-!README.py
+!start_ads_csv.py
 
 !data.csv
 !draft.csv
+
 !openai_generate_text.py
 !write_campaign_footer.py
+!get_header.py

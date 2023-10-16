@@ -1,20 +1,30 @@
-from get_products import get_products
+"""Автоматизируем csv-табличку для Google Ads."""
+
 from get_draft import get_draft
-from make_final_csv import make_final_csv
+from get_products import get_products
 from make_ads import make_ads
+from start_ads_csv import start_ads_csv
 from write_campaign_footer import write_campaign_footer
 
 
 def main():
+    """
+    Хорошо бы дописать приём аргументов.
 
+    Логика:
+    собираем коллекцию продуктов из  CMS-выгрузки;
+    подбираем значение полей шаблонной выгрузки из Google Ads;
 
+    создаём макет будущей csv-хи;
+    записываем тудой коллекцию продуктов;
+    записываем тудой футер компании.
+    """
     products = get_products('data.csv')
     draft = get_draft('draft.csv')
 
-    make_final_csv(draft)
+    start_ads_csv(draft)
     make_ads(products, draft)
     write_campaign_footer(draft)
-    #print(draft)
 
 
 if __name__ == '__main__':

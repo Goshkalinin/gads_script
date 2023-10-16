@@ -1,53 +1,89 @@
-def repair_ellipsis(string):
-    '''
-    Меняет многоточие на скучный дефис
-    '''
-    string = string.replace('...', '-')
-    return string
+"""
+Набор проверялок.
+
+Надо бы переписать, потому что эти проверялки
+часто выполняют лишние (не проверяющие) функции.
+
+Что вводит в заблуждение.
+"""
+
+
+def repair_description(string):
+    """
+    Фиксим стилистику дескрипшна.
+
+    Сейчас в бане: '...', '!', '"'
+
+    Args:
+        string (str): любая строка
+
+    Returns:
+        string (str)
+    """
+    return string.replace('...', '-').replace('!', '').replace('"', '')
 
 
 def check_headline_length(ad, not_writed_products):
-    if len(ad.vendor) > 30:
-        not_writed_products.append(ad)
-        return True
-    if len(ad.name) > 30:
-        not_writed_products.append(ad)
-        print('WOW')
-        return True
-    if len(ad.product_type) > 30:
-        not_writed_products.append(ad)
-        return True
-    if len('buy ' + ad.vendor) > 30:
-        not_writed_products.append(ad)
-        return True
-    if len(ad.name) > 30:
-        not_writed_products.append(ad)
-        return True
-    if len(ad.product_type) > 30:
-        not_writed_products.append(ad)
-        return True
+    """
+    Проверяем длину хедлайна.
+
+    Если слишком длинно, отправляем в список незаписанных.
+
+    Args:
+        ad (str): объект с хедлайнами
+        not_writed_products (list): список для продуктов не под запись.
+
+    Returns:
+        bool: если False — всё ок.
+    """
+    max_headline_length = 30
+    attributes_to_check = [
+        ad.vendor,
+        ad.name,
+        ad.product_type,
+        ' '.join(['buy', ad.vendor]),
+    ]
+
+    for attribute in attributes_to_check:
+        if len(attribute) > max_headline_length:
+            not_writed_products.append(ad)
+            return True
+
     return False
 
 
 def is_in_fourth_keywords(keywords, fourth_keywords):
-    '''
-    если в списке есть четвёртый ключ, выпиливаем объявку
-    '''
+    """
+    Eсли в списке fourth_keywords есть четвёртый ключ, выпиливаем объявку.
+
+    Args:
+        keywords (list): массив с ключами
+        fourth_keywords (list): массив с четвертыми ключами.
+
+    """
     if keywords[3] not in fourth_keywords:
         fourth_keywords.append(keywords[3])
     else:
-        print(keywords)
         keywords.remove(keywords[3])
 
 
 def check_description(description):
-    '''
-    Чекает длину дескрипшна:
-    если больше 90 символов режет по последнюю запятую, рекурсивно повторить
-    правит многоточия при их наличии
-    '''
-    description = repair_ellipsis(description)
-    if len(description) > 90:
+    """
+    Чекает длину дескрипшна.
+
+    Если больше 90 символов — режет по последнюю запятую,
+    рекурсивно повторить!
+    Правит многоточия и прочее при их наличии.
+
+    Args:
+        description (str): сбсна, дескрипшн объявки.
+
+    Returns:
+        description (str): поправленный дескрипшн.
+    """
+    description = repair_description(description)
+    description_max_length = 90
+    if len(description) > description_max_length:
         parts = description.split(',')
         description = ','.join(parts[:-1])
         description = check_description(description)
