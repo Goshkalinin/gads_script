@@ -5,6 +5,7 @@
 
 !main.py
 
+!py/
 !py/checkers.py
 !py/get_draft.py
 !py/get_products.py
