@@ -1,10 +1,17 @@
 """Автоматизируем csv-табличку для Google Ads."""
 
+import logging
+
 from get_draft import get_draft
 from get_products import get_products
 from make_ads import make_ads
 from start_ads_csv import start_ads_csv
 from write_campaign_footer import write_campaign_footer
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(name)s - %(levelname)s - Line %(lineno)d - \n %(message)s \n',
+)
 
 
 def main():

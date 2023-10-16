@@ -8,11 +8,6 @@
 import csv
 import logging
 
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(name)s - %(levelname)s - Line %(lineno)d - %(message)s',
-)
-
 logger = logging.getLogger(__name__)
 
 

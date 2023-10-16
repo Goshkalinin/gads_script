@@ -6,11 +6,8 @@
 """
 
 import csv
-import logging
 
 from get_draft import get_draft
-
-logging.basicConfig(level=logging.INFO)
 
 
 def start_ads_csv(draft):

@@ -5,6 +5,58 @@ import csv
 from get_header import get_header
 
 
+def write_footer1(draft, writer):
+    """
+    First footer row.
+
+    Args:
+        draft (obj): draft object
+        writer (obj): scv writer object
+    """
+    footer = {
+        'Campaign': draft.campaign,
+        'ID': draft.id,
+        'Location': draft.location,
+        'Reach': draft.reach,
+    }
+
+    writer.writerow(footer)
+
+
+def write_footer2(draft, writer):
+    """
+    Second footer row.
+
+    Args:
+        draft (obj): draft object
+        writer (obj): scv writer object
+    """
+    footer = {
+        'Campaign': draft.campaign,
+        'Image Size': draft.image_size,
+        'Link source': draft.link_source,
+    }
+
+    writer.writerow(footer)
+
+
+def write_footer3(draft, writer):
+    """
+    Third footer row.
+
+    Args:
+        draft (obj): draft object
+        writer (obj): scv writer object
+    """
+    footer = {
+        'Campaign': draft.campaign,
+        'Link source': draft.link_source,
+        'Business name': draft.business_name,
+    }
+
+    writer.writerow(footer)
+
+
 def write_campaign_footer(draft):
     """
     Записываем футер, на трёх строчках.
@@ -18,26 +70,6 @@ def write_campaign_footer(draft):
         fieldnames = get_header('final.csv')
 
         writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-
-        footer1 = {
-            'Campaign': draft.campaign,
-            'ID': draft.id,
-            'Location': draft.location,
-            'Reach': draft.reach,
-        }
-
-        footer2 = {
-            'Campaign': draft.campaign,
-            'Image Size': draft.image_size,
-            'Link source': draft.link_source,
-        }
-
-        footer3 = {
-            'Campaign': draft.campaign,
-            'Link source': draft.link_source,
-            'Business name': draft.business_name,
-        }
-
-        writer.writerow(footer1)
-        writer.writerow(footer2)
-        writer.writerow(footer3)
+        write_footer1(draft, writer)
+        write_footer2(draft, writer)
+        write_footer3(draft, writer)

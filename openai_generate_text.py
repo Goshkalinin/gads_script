@@ -1,19 +1,15 @@
 """Модуль генеряченья контента, сэр."""
 
+
 import logging
-import openai
-import requests
 import time
 
-from KEYS import OPENAI_KEY
+import openai
+import requests
 
+from keys import OPENAI_KEY
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-console_handler = logging.StreamHandler()
-formatter = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
-console_handler.setFormatter(formatter)
-logger.addHandler(console_handler)
 
 
 def check_internet_connection():
@@ -21,15 +17,18 @@ def check_internet_connection():
     Чекаем соединение об гугл.
 
     Если пропало — спим, рекурсивно вызываем проверку ещё раз.
+
     Returns:
         200 if ok
     """
     try:
         response = requests.get('http://www.google.com', timeout=5)
-        return response.status_code == 200
+        correct_status_code = 200
+        return response.status_code == correct_status_code
     except requests.ConnectionError:
         logger.info('ПРОПАЖА СВЯЗИ! \n посплю 30 секунд, и попробую ещё раз.')
-        time.sleep(30)
+        seconds_to_sleep = 30
+        time.sleep(seconds_to_sleep)
         check_internet_connection()
 
 

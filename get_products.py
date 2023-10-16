@@ -11,11 +11,6 @@ from dataclasses import dataclass
 from openai_generate_text import generate_text
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-console_handler = logging.StreamHandler()
-formatter = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
-console_handler.setFormatter(formatter)
-logger.addHandler(console_handler)
 
 
 @dataclass
@@ -67,6 +62,7 @@ def make_description3_prompt(
     to_do = """
     Act like you are an experienced Google ads professional,
     working for a distributor of industrial computers.
+    Tone of voice: considerate and simple.
     Write minimum 85 and maximum 90 characters description for product:"""
 
     return ' '.join([
