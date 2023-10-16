@@ -2,11 +2,11 @@
 
 import logging
 
-from get_draft import get_draft
-from get_products import get_products
-from make_ads import make_ads
-from start_ads_csv import start_ads_csv
-from write_campaign_footer import write_campaign_footer
+from py.get_draft import get_draft
+from py.get_products import get_products
+from py.make_ads import make_ads
+from py.start_ads_csv import start_ads_csv
+from py.write_campaign_footer import write_campaign_footer
 
 logging.basicConfig(
     level=logging.INFO,
