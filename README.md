@@ -20,3 +20,6 @@ https://github.com/wemake-services/wemake-python-styleguide
 
 Подробнее про опепячивалку:
 https://habr.com/ru/companies/oleg-bunin/articles/433480/
+
+запуск:
+'flake8 .'
