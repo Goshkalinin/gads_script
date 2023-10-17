@@ -25,7 +25,7 @@ def make_headline5(product_name):
     if '-' not in product_name:
         product_name = ' '.join([product_name, 'serises'])
     else:
-        product_name = product_name.split('-')[0]
+        product_name = product_name.rsplit('-', 1)[0]
 
     return product_name
 
