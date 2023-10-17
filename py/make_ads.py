@@ -6,6 +6,30 @@ from . import checkers
 from .get_header import get_header
 
 
+def make_headline5(product_name):
+    """
+    Тут сделаем пятый хедлайн.
+
+    Путём долгих обсуждений и тяжелых
+    моральных решений придумали вот чо:
+
+    режем по последнему дефису, если дефиса нет
+    — прихуячиваем ' series'.
+
+    Args:
+        product_name (str): имя продукта!
+
+    Returns:
+        product_name (str)
+    """
+    if '-' not in product_name:
+        product_name = ' '.join([product_name, 'serises'])
+    else:
+        product_name = product_name.split('-')[0]
+
+    return product_name
+
+
 def make_keywords(vendor, name):
     """
     Запилим ключевые слова.
@@ -94,6 +118,7 @@ def make_ads(products, draft):
             keywords = make_keywords(product.vendor, product.name)
             checkers.is_in_fourth_keywords(keywords, fourth_keywords)
 
+            # к каждому ключу записываем строчку с объявкой:
             for keyword in keywords:
                 writer.writerow({
                     'Campaign': draft.campaign,
@@ -116,11 +141,11 @@ def make_ads(products, draft):
                 'Headline 2 position': '2',
                 'Headline 3': product.product_type,
                 'Headline 3 position': '3',
-                'Headline 4': ' '.join(['buy', product.vendor]),
+                'Headline 4': ' '.join(['Buy', product.vendor]),
                 'Headline 4 position': '1',
-                'Headline 5': product.name,
+                'Headline 5': make_headline5(product.name),
                 'Headline 5 position': '2',
-                'Headline 6': 'product.product_type GPT',
+                'Headline 6': checkers.repair_symbols(product.headline6),
                 'Headline 6 position': '-',
                 'Headline 7': product.headline7,
                 'Headline 7 position': '3',

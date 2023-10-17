@@ -8,7 +8,7 @@
 """
 
 
-def repair_description(string):
+def repair_symbols(string):
     """
     Фиксим стилистику дескрипшна.
 
@@ -81,7 +81,7 @@ def check_description(description):
     Returns:
         description (str): поправленный дескрипшн.
     """
-    description = repair_description(description)
+    description = repair_symbols(description)
     description_max_length = 90
     if len(description) > description_max_length:
         parts = description.split(',')

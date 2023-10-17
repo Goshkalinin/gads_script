@@ -71,5 +71,5 @@ def write_campaign_footer(draft):
 
         writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
         write_footer1(draft, writer)
-        write_footer2(draft, writer)
-        write_footer3(draft, writer)
+        #write_footer2(draft, writer)
+        #write_footer3(draft, writer)

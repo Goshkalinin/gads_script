@@ -37,6 +37,7 @@ class Product(object):
 
     description3: str  # to generate!
     description4: str  # to generate!
+    headline6: str  # to generate!
 
 
 def make_description3_prompt(
@@ -114,6 +115,24 @@ def make_description4_prompt(
         ])
 
 
+def make_headline6_prompt(product_type):
+    """
+    Готовим промт для хедлайна 6.
+
+    Args:
+        product_type (str): from csv
+
+    Returns:
+        ready prompt!
+    """
+    to_do = """
+        Act like you are an experienced Google ads professional,
+        working for a distributor of industrial computers.
+        Write maximum 30 characters headline for product:"""
+
+    return ' '.join([to_do, product_type])
+
+
 def get_products(products_csv):
     """
     Открвыем csv-ху с продуктами, и построчно её обрабатываем.
@@ -166,6 +185,11 @@ def get_products(products_csv):
                         row[3],
                         row[7],
                         row[6],
+                        )),
+
+                headline6=generate_text(
+                    make_headline6_prompt(
+                        row[7],
                         )),
                 )
 

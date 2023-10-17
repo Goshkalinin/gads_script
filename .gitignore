@@ -2,6 +2,7 @@
 
 !.gitignore
 !README.md
+!TODO.md
 
 !main.py
 
@@ -11,10 +12,9 @@
 !py/get_products.py
 !py/make_ads.py
 !py/start_ads_csv.py
-
-!data.csv
-!draft.csv
-
 !py/openai_generate_text.py
 !py/write_campaign_footer.py
 !py/get_header.py
+
+!data.csv
+!draft.csv
