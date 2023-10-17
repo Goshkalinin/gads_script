@@ -22,4 +22,4 @@ https://github.com/wemake-services/wemake-python-styleguide
 https://habr.com/ru/companies/oleg-bunin/articles/433480/
 
 запуск:
-'flake8 .'
+`flake8 .`
