@@ -52,7 +52,7 @@ def count_total_rows(products_csv):
     """
     with open(products_csv, 'r', encoding='utf-8') as csv_file:
         reader = csv.reader(csv_file)
-        line_count = sum(1 for row in reader) + 1
+        line_count = sum(1 for row in reader) - 1
 
     return line_count
 
