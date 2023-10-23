@@ -40,6 +40,35 @@ class Product(object):
     headline6: str  # to generate!
 
 
+def count_total_rows(products_csv):
+    """
+    Посчитаем, сколько строк в файле.
+
+    Args:
+        products_csv (str): path
+
+    Returns:
+        total lines
+    """
+    with open(products_csv, 'r', encoding='utf-8') as csv_file:
+        reader = csv.reader(csv_file)
+        line_count = sum(1 for row in reader) + 1
+
+    return line_count
+
+
+def print_status(total, ctr):
+    """
+    Выведем, сколько обработано.
+
+    Args:
+        total (int): сколько строк в файле
+        ctr (int): counter
+    """
+    message = ' '.join(['Got', str(ctr), 'GPTs', 'of total', str(total)])
+    logger.info(message)
+
+
 def make_description3_prompt(
     manufacturer,
     product_name,
@@ -145,6 +174,9 @@ def get_products(products_csv):
     """
     products = []
 
+    total = count_total_rows(products_csv)
+    ctr = 1
+
     with open(products_csv, 'r', encoding='utf-8') as csv_file:
         reader = csv.reader(csv_file)
         next(reader)  # пропускаем хедер
@@ -193,7 +225,8 @@ def get_products(products_csv):
                         )),
                 )
 
-            logger.info(product)
+            print_status(total, ctr)
+            ctr += 1
             products.append(product)
 
     return products

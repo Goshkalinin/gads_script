@@ -1,5 +1,6 @@
 """Автоматизируем csv-табличку для Google Ads."""
 
+import argparse
 import logging
 
 from py.get_draft import get_draft
@@ -26,8 +27,36 @@ def main():
     записываем тудой коллекцию продуктов;
     записываем тудой футер компании.
     """
-    products = get_products('data.csv')
-    draft = get_draft('draft.csv')
+    parser = argparse.ArgumentParser(
+        description='Process product and draft data.',
+        )
+    parser.add_argument(
+        '-p',
+        '--products',
+        help='Path to the products file (e.g., data.csv)',
+        )
+    parser.add_argument(
+        '-d',
+        '--draft',
+        help='Path to the draft file (e.g., draft/draft.csv)',
+        )
+
+    args = parser.parse_args()
+
+    products_file = args.products
+
+    if args.draft:
+        draft_file = args.draft
+    else:
+        draft_file = 'draft/draft.csv'
+
+    if args.products:
+        products_file = args.products
+    else:
+        products_file = 'data.csv'
+
+    products = get_products(products_file)
+    draft = get_draft(draft_file)
 
     start_ads_csv(draft)
     make_ads(products, draft)

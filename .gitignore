@@ -19,4 +19,4 @@
 !py/get_header.py
 
 !data.csv
-!draft.csv
+!draft/draft.csv
