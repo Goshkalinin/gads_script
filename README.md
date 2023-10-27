@@ -4,15 +4,29 @@
 описать решаемые проблемы
 
 ## Как мы это делаем
+Открываем data.csv ()
 
 ## Структура проекта
-**main.py** — get_draft → get_products → start_ads_csv → make_ads → write_campaign_footer\
-┃\
-┣━ **get_draft** — подбирает шаблонные значения из draft.csv\
-┣━ **get_products** — подбирает инфу о продуктах из csv-файла, дописывает нужные поля\
-┣━ **start_ads_csv** — создаёт финальную табличку с хедером компании\
-┣━ **make_ads** — записывает группы объявлений в финальную табличку\
-┗━ **write_campaign_footer** — записывает футер компании
+.
+├── data.csv
+├── draft
+│   └── draft.csv
+├── main.py
+├── PROBLEMS.md
+├── py
+│   ├── checkers.py
+│   ├── get_draft.py
+│   ├── get_header.py
+│   ├── get_products.py
+│   ├── keys.py
+│   ├── make_ads.py
+│   ├── openai_generate_text.py
+│   ├── start_ads_csv.py
+│   └── write_campaign_footer.py
+├── README.md
+├── requirements.txt
+└── TODO.md
+
 
 ## Линтер
 Отпепячиваем код этим:
