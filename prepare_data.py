@@ -52,10 +52,6 @@ def prepare_data_csv(products_csv):
                 new_row.append(row[product_type])
                 new_row.append(row[vendor])
 
-                new_row.append(row[status])
-                new_row.append(row[category])
-                new_row.append(row[web_allow])
-
                 data_list.append(new_row)
 
     with open('data.csv', 'w', encoding='utf-8') as final_csv:
