@@ -183,57 +183,44 @@ def get_products(products_csv):
         next(reader)  # пропускаем хедер
 
         for row in reader:
-            
-            promt_3 = make_description3_prompt(
-                    row[8],
-                    row[0],
-                    row[3],
-                    row[7],
-                    row[6],
-                )
-            
-            promt_4 = make_description4_prompt(
-                    row[8],
-                    row[0],
-                    row[3],
-                    row[7],
-                    row[6],
-                )
 
-            promt_6 = make_headline6_prompt(
-                    row[7],
-                )
-            
-            """
-            description2 = multiprocessing.Process(target=generate_text, args=(' '.join(['translate on English:', row[2]]),))  # description_ru
-            """
-            description2 = ''
-            
-            
-            description3 = multiprocessing.Process(target=generate_text, args=(promt_3,))
-                    
-            description4 = multiprocessing.Process(target=generate_text, args=(promt_4,))                
-                    
-            headline6 = multiprocessing.Process(target=generate_text, args=(promt_6,))
-                
+            promt3 = make_description3_prompt(
+                row[8],
+                row[0],
+                row[3],
+                row[7],
+                row[6],
+            )
 
+            promt4 = make_description4_prompt(
+                row[8],
+                row[0],
+                row[3],
+                row[7],
+                row[6],
+            )
 
-            # description2.start()
+            description3 = multiprocessing.Process(
+                target=generate_text,
+                args=(promt3,),
+            )
+
+            description4 = multiprocessing.Process(
+                target=generate_text,
+                args=(promt4,),
+            )
+
             description3.start()
             description4.start()
-            headline6.start()
 
-            
-            # description2.join()
             description3.join()
             description4.join()
-            headline6.join()
-            
+
             product = Product(
                 name=row[0],
                 title=row[1],
 
-                description2=description2,
+                description2=row[2],
 
                 description1=row[3],  # description_en
                 url=row[4],
@@ -250,7 +237,7 @@ def get_products(products_csv):
 
                 description4=description4,
 
-                headline6=headline6,
+                headline6='For toughest environments',
                 )
 
             print_status(total, ctr)
@@ -258,14 +245,3 @@ def get_products(products_csv):
             products.append(product)
 
     return products
-
-
-if __name__ == '__main__':
-    import time
-    start_t = time.time()
-    products_csv = 'data_1.csv'
-    products_list = get_products(products_csv)
-    
-    end_t = time.time()
-    t = end_t - start_t
-    print(t)
