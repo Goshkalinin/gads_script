@@ -163,6 +163,11 @@ def make_headline6_prompt(product_type):
     return ' '.join([to_do, product_type])
 
 
+def generate_text_worker(queue, prompt):
+    result = generate_text(prompt)
+    queue.put(result)
+
+
 def get_products(products_csv):
     """
     Открвыем csv-ху с продуктами, и построчно её обрабатываем.
@@ -200,14 +205,17 @@ def get_products(products_csv):
                 row[6],
             )
 
+            description3_queue = multiprocessing.Queue()
+            description4_queue = multiprocessing.Queue()
+
             description3 = multiprocessing.Process(
-                target=generate_text,
-                args=(promt3,),
+                target=generate_text_worker,
+                args=(description3_queue, promt3),
             )
 
             description4 = multiprocessing.Process(
-                target=generate_text,
-                args=(promt4,),
+                target=generate_text_worker,
+                args=(description4_queue, promt4),
             )
 
             description3.start()
@@ -215,6 +223,9 @@ def get_products(products_csv):
 
             description3.join()
             description4.join()
+
+            description3 = description3_queue.get()
+            description4 = description4_queue.get()
 
             product = Product(
                 name=row[0],
@@ -234,7 +245,6 @@ def get_products(products_csv):
                 headline9=row[11],
 
                 description3=description3,
-
                 description4=description4,
 
                 headline6='For toughest environments',
