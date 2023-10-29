@@ -6,6 +6,7 @@
 
 import csv
 import logging
+import multiprocessing
 from dataclasses import dataclass
 
 from .openai_generate_text import generate_text
@@ -182,13 +183,54 @@ def get_products(products_csv):
         next(reader)  # пропускаем хедер
 
         for row in reader:
+            
+            promt_3 = make_description3_prompt(
+                    row[8],
+                    row[0],
+                    row[3],
+                    row[7],
+                    row[6],
+                )
+            
+            promt_4 = make_description4_prompt(
+                    row[8],
+                    row[0],
+                    row[3],
+                    row[7],
+                    row[6],
+                )
+
+            promt_6 = make_headline6_prompt(
+                    row[7],
+                )
+            
+            
+            description2 = multiprocessing.Process(target=generate_text, args=(' '.join(['translate on English:', row[2]]),))  # description_ru
+            
+            description3 = multiprocessing.Process(target=generate_text, args=(promt_3,))
+                    
+            description4 = multiprocessing.Process(target=generate_text, args=(promt_4,))                
+                    
+            headline6 = multiprocessing.Process(target=generate_text, args=(promt_6,))
+                
+
+
+            description2.start()
+            description3.start()
+            description4.start()
+            headline6.start()
+
+            
+            description2.join()
+            description3.join()
+            description4.join()
+            headline6.join()
+            
             product = Product(
                 name=row[0],
                 title=row[1],
 
-                description2=generate_text(
-                    ' '.join(['translate on English:', row[2]]),
-                    ),  # description_ru
+                description2=description2,
 
                 description1=row[3],  # description_en
                 url=row[4],
@@ -201,28 +243,11 @@ def get_products(products_csv):
                 headline8=row[10],
                 headline9=row[11],
 
-                description3=generate_text(
-                    make_description3_prompt(
-                        row[8],
-                        row[0],
-                        row[3],
-                        row[7],
-                        row[6],
-                        )),
+                description3=description3,
 
-                description4=generate_text(
-                    make_description4_prompt(
-                        row[8],
-                        row[0],
-                        row[3],
-                        row[7],
-                        row[6],
-                        )),
+                description4=description4,
 
-                headline6=generate_text(
-                    make_headline6_prompt(
-                        row[7],
-                        )),
+                headline6=headline6,
                 )
 
             print_status(total, ctr)
