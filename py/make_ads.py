@@ -179,7 +179,7 @@ def make_ads(products, draft):
                     checkers.check_description(product.description4),
                 'Description 4 position': '',
                 'Path 1': draft.path1,
-                'Path 2': product.url,
+                'Path 2': product.url[0:15],
                 })
 
     # Ежели список незаписанных не пустой, оформим csv-ху.

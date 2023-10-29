@@ -47,16 +47,12 @@ def generate_text(prompt):
 
     openai.api_key = OPENAI_KEY
 
-    best_temp = 0.25
-
-    completion = openai.ChatCompletion.create(
-        model='gpt-4',
-        messages=[
-            {'role': 'user',
-             'content': prompt,
-             },
-        ],
-        temperature=best_temp,
+    response = openai.Completion.create(
+      model="gpt-3.5-turbo-instruct",
+      prompt="Write a tagline for an ice cream shop.",
+      temperature=0.25
     )
 
-    return completion.choices[0].message.content
+    print(response.choices[0].text)
+
+    return response.choices[0].text
