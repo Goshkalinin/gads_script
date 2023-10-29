@@ -204,8 +204,11 @@ def get_products(products_csv):
                     row[7],
                 )
             
-            
+            """
             description2 = multiprocessing.Process(target=generate_text, args=(' '.join(['translate on English:', row[2]]),))  # description_ru
+            """
+            description2 = ''
+            
             
             description3 = multiprocessing.Process(target=generate_text, args=(promt_3,))
                     
@@ -215,13 +218,13 @@ def get_products(products_csv):
                 
 
 
-            description2.start()
+            # description2.start()
             description3.start()
             description4.start()
             headline6.start()
 
             
-            description2.join()
+            # description2.join()
             description3.join()
             description4.join()
             headline6.join()
