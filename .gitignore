@@ -19,7 +19,5 @@
 !py/write_campaign_footer.py
 !py/get_header.py
 
-!data.csv
-
 !draft
 !draft/draft.csv
