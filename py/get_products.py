@@ -233,5 +233,11 @@ def get_products(products_csv):
 
 
 if __name__ == '__main__':
+    import time
+    start_t = time.time()
     products_csv = 'data_1.csv'
     products_list = get_products(products_csv)
+    
+    end_t = time.time()
+    t = end_t - start_t
+    print(t)
