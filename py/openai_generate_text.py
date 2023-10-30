@@ -49,8 +49,7 @@ def generate_text(prompt):
 
     response = openai.Completion.create(
       model="gpt-3.5-turbo-instruct",
-      prompt="Write a tagline for an ice cream shop.",
-      temperature=0.25
+      prompt=promt,
     )
 
     print(response.choices[0].text)

@@ -189,44 +189,6 @@ def get_products(products_csv):
 
         for row in reader:
 
-            promt3 = make_description3_prompt(
-                row[8],
-                row[0],
-                row[3],
-                row[7],
-                row[6],
-            )
-
-            promt4 = make_description4_prompt(
-                row[8],
-                row[0],
-                row[3],
-                row[7],
-                row[6],
-            )
-
-            description3_queue = multiprocessing.Queue()
-            description4_queue = multiprocessing.Queue()
-
-            description3 = multiprocessing.Process(
-                target=generate_text_worker,
-                args=(description3_queue, promt3),
-            )
-
-            description4 = multiprocessing.Process(
-                target=generate_text_worker,
-                args=(description4_queue, promt4),
-            )
-
-            description3.start()
-            description4.start()
-
-            description3.join()
-            description4.join()
-
-            description3 = description3_queue.get()
-            description4 = description4_queue.get()
-
             product = Product(
                 name=row[0],
                 title=row[1],
@@ -244,8 +206,8 @@ def get_products(products_csv):
                 headline8=row[10],
                 headline9=row[11],
 
-                description3=description3,
-                description4=description4,
+                description3='',
+                description4='',
 
                 headline6='For toughest environments',
                 )

@@ -83,8 +83,9 @@ def check_description(description):
     """
     description = repair_symbols(description)
     description_max_length = 90
-    if len(description) > description_max_length:
+    if len(description) > description_max_length and ',' in description:
         parts = description.split(',')
         description = ','.join(parts[:-1])
         description = check_description(description)
+
     return description
